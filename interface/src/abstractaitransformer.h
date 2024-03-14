@@ -40,7 +40,7 @@ public:
     bool done() const;
     std::shared_ptr<AbstractAiRepresentation> getRepresentation() const { return m_representation; }
 
-private:
+protected:
     TransformError m_error;
     std::shared_ptr<AbstractAiRepresentation> m_representation;
 };

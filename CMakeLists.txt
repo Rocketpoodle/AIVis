@@ -6,3 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(application)
 add_subdirectory(interface)
+
+add_subdirectory(3rdparty/ublas)
+add_subdirectory(3rdparty/HighFive)
+add_subdirectory(impl)

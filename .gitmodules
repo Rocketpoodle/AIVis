@@ -1,0 +1,6 @@
+[submodule "3rdparty/HighFive"]
+	path = 3rdparty/HighFive
+	url = git@github.com:BlueBrain/HighFive.git
+[submodule "3rdparty/ublas"]
+	path = 3rdparty/ublas
+	url = git@github.com:boostorg/ublas.git
