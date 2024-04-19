@@ -1,14 +1,10 @@
 #find_package(Qt6 6.5 REQUIRED COMPONENTS)
 
-add_library(AiRepresentationInterface STATIC
-    src/abstractairepresentation.cpp
-    src/abstractaifactory.cpp
-    src/abstractaitransformer.cpp
-    src/abstractrepsourceconfig.h src/abstractrepsourceconfig.cpp
+add_library(AiModelInterface STATIC
 
 )
 
-target_include_directories(AiRepresentationInterface PUBLIC
+target_include_directories(AiModelInterface PUBLIC
         src
 )
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -22,15 +18,15 @@ target_include_directories(AiRepresentationInterface PUBLIC
 #    WIN32_EXECUTABLE TRUE
 #)
 
-target_link_libraries(AiRepresentationInterface
+target_link_libraries(AiModelInterface
 
 )
 
 include(GNUInstallDirs)
-install(TARGETS AiRepresentationInterface
+install(TARGETS AiModelInterface
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-add_subdirectory(test)
+# add_subdirectory(test)

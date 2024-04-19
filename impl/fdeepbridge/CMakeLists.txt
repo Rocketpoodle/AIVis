@@ -1,11 +1,16 @@
 #find_package(Qt6 6.5 REQUIRED COMPONENTS)
+find_package(frugally-deep)
+find_package(eigen)
 
-add_library(ANNRepresentation STATIC
+add_library(fdeepbridge STATIC
         anntransformer.cpp
-        annrepsourceconfig.cpp
+        ext_data_model.h
+        ext_data_model_layer.h
+        import_ext_data_model.h
+        external_output_dict.h
 )
 
-target_include_directories(ANNRepresentation PUBLIC
+target_include_directories(fdeepbridge PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -19,12 +24,14 @@ target_include_directories(ANNRepresentation PUBLIC
 #    WIN32_EXECUTABLE TRUE
 #)
 
-target_link_libraries(ANNRepresentation
+target_link_libraries(fdeepbridge
         AiRepresentationInterface
+        frugally-deep::fdeep
+        Eigen3::Eigen
 )
 
 include(GNUInstallDirs)
-install(TARGETS ANNRepresentation
+install(TARGETS fdeepbridge
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
