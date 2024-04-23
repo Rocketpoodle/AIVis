@@ -1,10 +1,11 @@
-#find_package(Qt6 6.5 REQUIRED COMPONENTS)
-
-add_library(AiModelInterface STATIC
-
+# find_package(Qt6 6.5 REQUIRED COMPONENTS)
+add_library(ModelBridgeInterface STATIC
+    src/DataInterface.h
+    src/ModelInterface.h
+    src/LayerInterface.h
 )
 
-target_include_directories(AiModelInterface PUBLIC
+target_include_directories(ModelBridgeInterface PUBLIC
         src
 )
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -18,12 +19,15 @@ target_include_directories(AiModelInterface PUBLIC
 #    WIN32_EXECUTABLE TRUE
 #)
 
-target_link_libraries(AiModelInterface
+# Help cmake know that our target is C++
+set_target_properties(ModelBridgeInterface PROPERTIES LINKER_LANGUAGE CXX)
+
+target_link_libraries(ModelBridgeInterface
 
 )
 
 include(GNUInstallDirs)
-install(TARGETS AiModelInterface
+install(TARGETS ModelBridgeInterface
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

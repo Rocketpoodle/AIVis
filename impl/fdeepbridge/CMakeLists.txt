@@ -3,11 +3,13 @@ find_package(frugally-deep)
 find_package(eigen)
 
 add_library(fdeepbridge STATIC
-        anntransformer.cpp
         ext_data_model.h
         ext_data_model_layer.h
         import_ext_data_model.h
         external_output_dict.h
+        fdeepmodel.h fdeepmodel.cpp
+        fdeeplayer.h fdeeplayer.cpp
+        fdeepdata.h fdeepdata.cpp
 )
 
 target_include_directories(fdeepbridge PUBLIC
@@ -24,8 +26,11 @@ target_include_directories(fdeepbridge PUBLIC
 #    WIN32_EXECUTABLE TRUE
 #)
 
+# Help cmake know that our target is C++
+set_target_properties(fdeepbridge PROPERTIES LINKER_LANGUAGE CXX)
+
 target_link_libraries(fdeepbridge
-        AiRepresentationInterface
+        ModelBridgeInterface
         frugally-deep::fdeep
         Eigen3::Eigen
 )

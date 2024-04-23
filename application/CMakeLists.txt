@@ -28,7 +28,7 @@ set_target_properties(appAIVis PROPERTIES
 target_link_libraries(appAIVis
     PRIVATE
     Qt6::Quick
-    AiRepresentationInterface
+    # AiRepresentationInterface
 )
 
 include(GNUInstallDirs)

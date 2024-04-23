@@ -173,7 +173,7 @@ public:
         return ext_data_model_layer_->is_stateful();
     }
 
-    internal::layer_ptr get_model() const
+    std::shared_ptr<internal::ext_data_model_layer> get_model() const
     {
         return ext_data_model_layer_;
     }
