@@ -21,5 +21,8 @@ private:
     fdeep::internal::layer_ptr m_layer;
     ModelBridge::LayerType m_layer_type;
 };
+
+ModelBridge::LayerType getLayerTypeFromFbridgeLayer(const fdeep::internal::layer_ptr& fbridgeLayerPtr);
+
 }
 #endif // FDEEPLAYER_H

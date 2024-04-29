@@ -60,7 +60,7 @@ std::vector<LayerPtr> Model::getIncomingLayers(const LayerPtr& layer) const
                                             return checkLayer->getId() == b.layer_id_;
                                         });
                                         // only append if unique
-                                        if(std::find(incomingLayers.cbegin(), incomingLayers.cend(), foundLayer) != incomingLayers.cend())  {
+                                        if(std::find(incomingLayers.cbegin(), incomingLayers.cend(), foundLayer) == incomingLayers.cend())  {
                                             incomingLayers.push_back(foundLayer);
                                         }
                                     });

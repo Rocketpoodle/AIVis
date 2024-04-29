@@ -5,11 +5,9 @@ using namespace FdeepBridge;
 
 Layer::Layer(const fdeep::internal::layer_ptr& layer)
     : m_layer(layer)
-    , m_layer_type(ModelBridge::Unknown)
+    , m_layer_type(getLayerTypeFromFbridgeLayer(layer))
 {
-    if (std::dynamic_pointer_cast<fdeep::internal::dense_layer>(m_layer)) {
-        m_layer_type = ModelBridge::Dense;
-    }
+
 }
 
 std::string Layer::getId() const
@@ -25,4 +23,13 @@ ModelBridge::LayerType Layer::getLayerType() const
 fdeep::internal::layer_ptr Layer::getFdeepLayer() const
 {
     return m_layer;
+}
+
+ModelBridge::LayerType FdeepBridge::getLayerTypeFromFbridgeLayer(const fdeep::internal::layer_ptr& fbridgeLayerPtr)
+{
+    if (std::dynamic_pointer_cast<fdeep::internal::dense_layer>(fbridgeLayerPtr)) {
+        return ModelBridge::Dense;
+    }
+
+    return ModelBridge::Unknown;
 }
