@@ -59,6 +59,8 @@ outside of the libraries (although may still need them as dependencies).
   format and do the fdeep conversion python step automatically.
 - Fix 3rdparty submodules. Some are no-longer used and frugally deep should be built
   and installed separately
+- Naming. Some items need updated names (like tst_annrepresentation), and some need
+  consistency (i.e. FdeepBridge::DenseLayer and FdeepBridge::FdeepUnknownLayer)
 
 ## Notes and Limitations
 - This is a pet project so most items are minimally implemented, and progress is slow,
