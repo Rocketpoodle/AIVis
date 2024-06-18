@@ -8,8 +8,12 @@ add_library(fdeepbridge STATIC
         import_ext_data_model.h
         external_output_dict.h
         fdeepmodel.h fdeepmodel.cpp
-        fdeeplayer.h fdeeplayer.cpp
         fdeepdata.h fdeepdata.cpp
+        layers/fdeepdenselayer.h layers/fdeepdenselayer.cpp
+        layers/fdeeplayerifacefactory.h layers/fdeeplayerifacefactory.cpp
+        utils.h
+        FdeepInternalRep.h
+        layers/fdeepunknownlayer.h layers/fdeepunknownlayer.cpp
 )
 
 target_include_directories(fdeepbridge PUBLIC

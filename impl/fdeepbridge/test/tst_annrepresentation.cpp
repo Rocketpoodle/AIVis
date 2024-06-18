@@ -1,5 +1,8 @@
 #include "fdeepdata.h"
 #include "fdeepmodel.h"
+#include "layers/denselayerinterface.h"
+#include "layers/fdeepdenselayer.h"
+#include "layers/fdeepunknownlayer.h"
 #include <QtTest>
 #include <fdeep/fdeep.hpp>
 #include <iostream>
@@ -46,17 +49,28 @@ void ANNRepresentationTest::testLayerGraph()
     for (const auto& layer: m_model->getLayerGraph()) {
         if (layer->layer->getId() == "input_1") {
             QVERIFY(layer->outputs.back()->layer->getId() == "flatten");
+            QVERIFY(layer->layer->getLayerType() == "unknown");
+            QVERIFY(std::dynamic_pointer_cast<ModelBridge::LayerInterface>(layer->layer));
+            QVERIFY(std::dynamic_pointer_cast<FdeepBridge::FdeepUnknownLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "flatten") {
             QVERIFY(layer->inputs.back()->layer->getId() == "input_1");
-            QVERIFY(layer->outputs.back()->layer->getId() == "dense");
+            QVERIFY(layer->layer->getLayerType() == "unknown");
+            QVERIFY(std::dynamic_pointer_cast<ModelBridge::LayerInterface>(layer->layer));
+            QVERIFY(std::dynamic_pointer_cast<FdeepBridge::FdeepUnknownLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "dense") {
             QVERIFY(layer->inputs.back()->layer->getId() == "flatten");
             QVERIFY(layer->outputs.back()->layer->getId() == "dense_1");
+            QVERIFY(layer->layer->getLayerType() == "dense");
+            QVERIFY(std::dynamic_pointer_cast<ModelBridge::DenseLayerInterface>(layer->layer));
+            QVERIFY(std::dynamic_pointer_cast<FdeepBridge::DenseLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "dense_1") {
             QVERIFY(layer->inputs.back()->layer->getId() == "dense");
+            QVERIFY(layer->layer->getLayerType() == "dense");
+            QVERIFY(std::dynamic_pointer_cast<ModelBridge::DenseLayerInterface>(layer->layer));
+            QVERIFY(std::dynamic_pointer_cast<FdeepBridge::DenseLayer>(layer->layer));
         }
     }
 }

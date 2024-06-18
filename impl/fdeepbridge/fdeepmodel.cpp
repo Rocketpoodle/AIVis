@@ -1,15 +1,19 @@
 #include "fdeepmodel.h"
 
+#include "FdeepInternalRep.h"
 #include "fdeepdata.h"
-#include "fdeeplayer.h"
+#include "layers/fdeeplayerifacefactory.h"
 
 using namespace FdeepBridge;
 
 Model::Model(const fdeep::ext_data_model& model)
     : m_model_ptr(std::make_unique<fdeep::ext_data_model>(model))
 {
-    std::for_each(m_model_ptr->get_model()->get_layers().cbegin(), m_model_ptr->get_model()->get_layers().cend(), [this](const fdeep::internal::layer_ptr& layer){
-        m_layers.emplace_back(std::make_shared<Layer>(layer));
+    std::transform(m_model_ptr->get_model()->get_layers().cbegin(),
+                   m_model_ptr->get_model()->get_layers().cend(),
+                   std::back_inserter(m_layers),
+                   [](const fdeep::internal::layer_ptr& a) -> LayerPtr {
+        return FdeepLayerFactorySingleton::instance().createBridgeInterface(a);
     });
 }
 
@@ -39,18 +43,19 @@ const std::vector<LayerPtr>& Model::getLayers() const
 std::vector<LayerPtr> Model::getIncomingLayers(const LayerPtr& layer) const
 {
     auto foundLayer = std::find_if(m_layers.cbegin(), m_layers.cend(), [&layer](const LayerPtr& a){
-        return a == layer;
+        return a->getId() == layer->getId();
     });
 
     if (foundLayer == m_layers.cend()) {
         return {};
     }
 
-    auto* fdeepLayer = static_cast<Layer*>(foundLayer->get());
+    auto fdeepLayer = std::static_pointer_cast<FdeepInternalRep>(layer->getInternalRep())->getLayerPtr();
+
     // for each node in this layer, check all incoming nodes and append the layers to the incomingLayers vector
     std::vector<LayerPtr> incomingLayers;
-    std::for_each(fdeepLayer->getFdeepLayer()->nodes_.cbegin(),
-                  fdeepLayer->getFdeepLayer()->nodes_.cend(),
+    std::for_each(fdeepLayer->nodes_.cbegin(),
+                  fdeepLayer->nodes_.cend(),
                   [&](const fdeep::internal::node& a){
                       std::for_each(a.inbound_connections_.cbegin(),
                                     a.inbound_connections_.cend(),

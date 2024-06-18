@@ -14,7 +14,14 @@ class DataInterface
 {
 public:
 
-    inline bool hasValidOutput() const {
+    DataInterface()
+        : m_has_error(false)
+    {
+
+    }
+
+    inline bool hasValidOutput() const
+    {
         return !m_has_error && hasValidOutput_impl();
     }
 

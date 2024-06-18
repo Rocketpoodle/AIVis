@@ -1,5 +1,6 @@
 #include "fdeepdata.h"
-#include "fdeeplayer.h"
+
+#include "FdeepInternalRep.h"
 
 #include "fdeep/layers/layer.hpp"
 
@@ -35,7 +36,7 @@ void Data::clearValidOutput_impl()
 std::vector<double> Data::getLayerOutput_impl(const ModelBridge::LayerPtr& layer) const
 {
     std::vector<double> outputVector;
-    auto fdeepLayer = static_cast<Layer*>(layer.get())->getFdeepLayer();
+    auto fdeepLayer = std::static_pointer_cast<FdeepInternalRep>(layer->getInternalRep())->getLayerPtr();
     std::for_each(m_data_cache->at({layer->getId(),0}).cbegin(), m_data_cache->at({layer->getId(),0}).cend(), [&outputVector](const fdeep::internal::tensor& tensor){
         auto tensorVec = tensor.as_vector();
         std::copy(tensorVec->cbegin(), tensorVec->cend(), std::back_inserter(outputVector));

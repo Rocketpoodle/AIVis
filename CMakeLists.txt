@@ -24,3 +24,4 @@ add_subdirectory(interface)
 
 # add_subdirectory(3rdparty/HighFive)
 add_subdirectory(impl)
+add_subdirectory(viewmodels)

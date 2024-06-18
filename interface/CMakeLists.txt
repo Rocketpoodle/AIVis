@@ -3,6 +3,8 @@ add_library(ModelBridgeInterface STATIC
     src/DataInterface.h
     src/ModelInterface.h
     src/LayerInterface.h
+    src/layers/denselayerinterface.h
+
 )
 
 target_include_directories(ModelBridgeInterface PUBLIC

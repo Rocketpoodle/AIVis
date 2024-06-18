@@ -2,7 +2,8 @@
 #define LAYERINTERFACE_H
 
 #include <memory>
-#include <vector>
+#include <string>
+
 namespace ModelBridge
 {
 
@@ -11,17 +12,16 @@ using ModelPtr = std::shared_ptr<ModelInterface>;
 class DataInterface;
 using DataPtr = std::shared_ptr<DataInterface>;
 
-enum LayerType {
-    Unknown,
-    Dense
-};
+class InternalLayerRep {};
 
 class LayerInterface
 {
 public:
     virtual std::string getId() const = 0;
 
-    virtual LayerType getLayerType() const = 0;
+    virtual std::string getLayerType() const = 0;
+
+    virtual std::shared_ptr<InternalLayerRep> getInternalRep() const = 0;
 };
 }
 #endif // LAYERINTERFACE_H
