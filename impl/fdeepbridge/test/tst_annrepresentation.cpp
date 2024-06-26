@@ -5,7 +5,6 @@
 #include "layers/fdeepunknownlayer.h"
 #include <QtTest>
 #include <fdeep/fdeep.hpp>
-#include <iostream>
 #include <QImage>
 
 #include <ext_data_model.h>
