@@ -13,6 +13,7 @@ public:
     std::string getLayerType() const override {
         return "dense";
     }
+
 };
 
 }

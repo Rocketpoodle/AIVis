@@ -13,6 +13,10 @@ int DenseNodesListModel::rowCount(const QModelIndex& parent) const
     }
 
     /*! \note this assumes shape is always 1 column */
+    /*! \note currently, with Fdeep, there is no way to acertain the node count
+     *        from the dense layer. Instead, we can acertain this from the given
+     *        stored data, so this will remain 0 until data has been assigned
+     */
     return m_data.size();
 }
 
