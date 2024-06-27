@@ -11,6 +11,8 @@ qt_add_executable(appAIVis
 qt_add_qml_module(appAIVis
     URI AIVis
     VERSION 1.0
+    IMPORTS
+    LayerViewModels
     QML_FILES Main.qml
 )
 
@@ -28,6 +30,7 @@ set_target_properties(appAIVis PROPERTIES
 target_link_libraries(appAIVis
     PRIVATE
     Qt6::Quick
+    layerviewmodelsplugin
     # AiRepresentationInterface
 )
 

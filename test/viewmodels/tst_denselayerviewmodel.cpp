@@ -84,7 +84,7 @@ void DenseLayerViewModelTest::testDataOutputs()
 
     for (int i = 0; i < view_model.getNodesListModel()->rowCount(); ++i) {
         bool wasDouble;
-        double testVal = view_model.getNodesListModel()->data(view_model.getNodesListModel()->index(truthIndex,0), DenseNodesListModel::Roles::Output).toDouble(&wasDouble);
+        double testVal = view_model.getNodesListModel()->data(view_model.getNodesListModel()->index(truthIndex,0), DenseNodesListModel::Roles::output).toDouble(&wasDouble);
         QVERIFY(wasDouble);
         if (testVal > maxVal) {
             maxVal = testVal;

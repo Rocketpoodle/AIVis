@@ -8,11 +8,18 @@ qt_add_qml_module(layerviewmodels
     URI LayerViewModels
     VERSION 1.0
     QML_FILES
+    qml/AIModelView.qml
+    qml/LayerPreview.qml
+    qml/layers/UnknownLayerPreview.qml
+    qml/layers/DenseLayerPreview.qml
+    qml/layers/DenseLayerView.qml
     SOURCES
+    qtutils.h
     layerviewmodelinterface.h
     layers/denselayerviewmodel.h
     layers/denselayerviewmodel.cpp
-    qtutils.h
+    layerviewregistry.h
+    layerviewregistry.cpp
 )
 
 target_include_directories(layerviewmodels PUBLIC

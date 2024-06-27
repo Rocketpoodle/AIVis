@@ -32,7 +32,7 @@ QVariant DenseNodesListModel::data(const QModelIndex& index, int role) const
 
     switch (role)
     {
-    case Roles::Output:
+    case Roles::output:
         /*! \note this assumes shape is always 1 column
          *        we should likely get layer shape info and use that
          *        although it could be saved for other layer model impls

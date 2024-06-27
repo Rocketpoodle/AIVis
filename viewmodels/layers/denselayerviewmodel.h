@@ -16,7 +16,7 @@ class DenseNodesListModel: public QAbstractListModel
     QML_UNCREATABLE("Can't be default constructed")
 public:
     enum Roles {
-        Output
+        output
     };
 
     explicit DenseNodesListModel(const std::shared_ptr<ModelBridge::DenseLayerInterface>& layer, QObject *parent = nullptr);

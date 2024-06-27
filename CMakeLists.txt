@@ -14,7 +14,6 @@ if (MINGW)
     add_compile_options(-Wa,-mbig-obj)
 endif()
 
-add_subdirectory(application)
 add_subdirectory(interface)
 
 # add_subdirectory(3rdparty/ublas)
@@ -25,4 +24,5 @@ add_subdirectory(interface)
 # add_subdirectory(3rdparty/HighFive)
 add_subdirectory(impl)
 add_subdirectory(viewmodels)
+add_subdirectory(application)
 add_subdirectory(test)
