@@ -16,7 +16,7 @@ FdeepLayerFactory::FdeepLayerFactory()
  * \param layer fdeep layer pointer
  * \return ModelBridge::LayerInterface pointer constructed from the given layer
  */
-LayerIfacePtr FdeepLayerFactory::createBridgeInterface(const fdeep::internal::layer_ptr& layer)
+LayerIfacePtr FdeepLayerFactory::createBridgeInterface(const fdeep::internal::layer_ptr& layer) const
 {
     if (!layer) {
         return nullptr;

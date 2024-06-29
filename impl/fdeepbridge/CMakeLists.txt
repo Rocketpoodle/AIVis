@@ -11,13 +11,14 @@ add_library(fdeepbridge STATIC
         fdeepdata.h fdeepdata.cpp
         layers/fdeepdenselayer.h layers/fdeepdenselayer.cpp
         layers/fdeeplayerifacefactory.h layers/fdeeplayerifacefactory.cpp
-        utils.h
+        ../../common/utils.h
         FdeepInternalRep.h
         layers/fdeepunknownlayer.h layers/fdeepunknownlayer.cpp
 )
 
 target_include_directories(fdeepbridge PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../common
 )
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

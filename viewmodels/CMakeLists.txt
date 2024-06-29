@@ -14,17 +14,20 @@ qt_add_qml_module(layerviewmodels
     qml/layers/DenseLayerPreview.qml
     qml/layers/DenseLayerView.qml
     SOURCES
+    ../common/utils.h
     qtutils.h
     layerviewmodelinterface.h
-    layers/denselayerviewmodel.h
-    layers/denselayerviewmodel.cpp
-    layerviewregistry.h
-    layerviewregistry.cpp
+    layers/layerviewmodelregistry.h layers/layerviewmodelregistry.cpp
+    layerviewregistry.h layerviewregistry.cpp
+    layers/unknownlayerviewmodel.h layers/unknownlayerviewmodel.cpp
+    layers/denselayerviewmodel.h layers/denselayerviewmodel.cpp
+    aimodelviewmodel.h aimodelviewmodel.cpp
 )
 
 target_include_directories(layerviewmodels PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/layers
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

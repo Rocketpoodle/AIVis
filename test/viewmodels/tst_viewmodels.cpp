@@ -1,18 +1,17 @@
-#include "fdeepmodel.h"
-#include "layers/denselayerinterface.h"
 #include <QtTest>
-#include <fdeep/fdeep.hpp>
-#include <QImage>
-#include <QModelIndex>
+
+#include "aimodelviewmodel.h"
+#include "fdeepmodel.h"
+
+#include "unknownlayerviewmodel.h"
+#include "denselayerviewmodel.h"
 
 #include <ext_data_model.h>
 #include <external_output_dict.h>
 
-#include <layers/denselayerviewmodel.h>
-
 #include "fdeepdata.h"
 
-class DenseLayerViewModelTest : public QObject
+class ViewModelsTest : public QObject
 {
     Q_OBJECT
 
@@ -22,19 +21,62 @@ private:
 private slots:
     void initTestCase();
 
-    void testDataOutputs();
+    void testModelLoad();
+
+    void testDenseLayerOutputs();
 
     void cleanupTestCase() {};
 };
 
-void DenseLayerViewModelTest::initTestCase()
+void ViewModelsTest::initTestCase()
 {
     auto model = fdeep::load_ext_data_model("simple_image_classifier.json");
     m_model = std::make_shared<FdeepBridge::Model>(model);
     m_model->initialize();
 }
 
-void DenseLayerViewModelTest::testDataOutputs()
+void ViewModelsTest::testModelLoad()
+{
+    auto ifacePtr = std::dynamic_pointer_cast<ModelBridge::ModelInterface>(m_model); // why can't this implicitly convert to parent pointer??
+    AIModelViewModel viewModel(ifacePtr);
+
+    QCOMPARE(viewModel.rowCount(), 4);
+
+    // check for proper layer information
+    auto index = viewModel.index(0,0);
+    LayerViewModelInterface* layerVm = nullptr;
+    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "input_1");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "unknown");
+    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QVERIFY(layerVm);
+    QVERIFY(dynamic_cast<UnknownLayerViewModel*>(layerVm));
+
+    index = viewModel.index(1,0);
+    layerVm = nullptr;
+    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "flatten");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "unknown");
+    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QVERIFY(layerVm);
+    QVERIFY(dynamic_cast<UnknownLayerViewModel*>(layerVm));
+
+    index = viewModel.index(2,0);
+    layerVm = nullptr;
+    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "dense");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "dense");
+    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QVERIFY(layerVm);
+    QVERIFY(dynamic_cast<DenseLayerViewModel*>(layerVm));
+
+    index = viewModel.index(3,0);
+    layerVm = nullptr;
+    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "dense_1");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "dense");
+    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QVERIFY(layerVm);
+    QVERIFY(dynamic_cast<DenseLayerViewModel*>(layerVm));
+}
+
+void ViewModelsTest::testDenseLayerOutputs()
 {
     // create dense viewmodel
     auto layer_interface = m_model->getLayer("dense_1");
@@ -105,6 +147,6 @@ void DenseLayerViewModelTest::testDataOutputs()
     QCOMPARE(view_model1.getNodesListModel()->rowCount(), 128);
 }
 
-QTEST_MAIN(DenseLayerViewModelTest)
+QTEST_MAIN(ViewModelsTest)
 
-#include "tst_denselayerviewmodel.moc"
+#include "tst_viewmodels.moc"

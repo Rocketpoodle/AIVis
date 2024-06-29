@@ -17,7 +17,8 @@ configure_file(
 )
 
 add_executable(${TEST_NAME}
-        "tst_denselayerviewmodel.cpp"
+        "tst_viewmodels.cpp"
+
 )
 
 add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} -o test_messages.xml -xunitxml)

@@ -3,7 +3,7 @@
 
 #include "fdeep/node.hpp"
 
-#include "utils.h"
+#include <utils.h>
 
 #include <LayerInterface.h>
 
@@ -16,9 +16,10 @@ class FdeepLayerFactory
 {
 public:
     FdeepLayerFactory();
-    LayerIfacePtr createBridgeInterface(const fdeep::internal::layer_ptr& layer);
+    LayerIfacePtr createBridgeInterface(const fdeep::internal::layer_ptr& layer) const;
 
     void registerLayerCreator(LayerCreator creator);
+
 private:
     std::list<LayerCreator> m_layer_creators;
 };

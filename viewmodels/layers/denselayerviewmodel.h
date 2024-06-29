@@ -62,4 +62,6 @@ private:
     DenseNodesListModel* m_nodes;
 };
 
+DenseLayerViewModel* create_dense_layer_viewmodel(const std::shared_ptr<ModelBridge::LayerInterface>& layer, QObject* parent);
+
 #endif // DENSELAYERVIEWMODEL_H

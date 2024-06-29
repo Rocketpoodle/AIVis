@@ -70,4 +70,11 @@ void DenseLayerViewModel::assignRunData(const std::shared_ptr<ModelBridge::DataI
     m_nodes->assignRunData(data);
 }
 
+DenseLayerViewModel* create_dense_layer_viewmodel(const std::shared_ptr<ModelBridge::LayerInterface>& layer, QObject* parent)
+{
+    if (auto dense_ptr = std::dynamic_pointer_cast<ModelBridge::DenseLayerInterface>(layer)) {
+        return new DenseLayerViewModel(dense_ptr, parent);
+    }
 
+    return nullptr;
+}
