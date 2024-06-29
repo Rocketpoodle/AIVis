@@ -55,7 +55,7 @@ protected:
  * and named by the value given for "SingletinAlias". Underlying type
  * must be a subclass of QObject in some form.
  */ \
-class SingletonAlias : public QObject, public CppQmlSingleton<SingletonAlias> \
+class SingletonAlias : public UnderlyingType, public CppQmlSingleton<SingletonAlias> \
 { \
     Q_OBJECT \
     QML_ELEMENT \

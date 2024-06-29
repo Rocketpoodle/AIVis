@@ -19,9 +19,9 @@ public:
     virtual ~AIModelViewModel();
 
     enum Roles {
-        layer,
-        id,
-        type
+        layerViewModel,
+        layerId,
+        layerType
     };
 
     /*!

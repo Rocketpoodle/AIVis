@@ -2,10 +2,22 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+# TODO: Remove this eventually once we aren't forcing the test data
+configure_file(
+    ${PROJECT_SOURCE_DIR}/test/data/simple_image_classifier.json
+    ${CMAKE_CURRENT_BINARY_DIR}/simple_image_classifier.json
+    COPYONLY
+)
+
+configure_file(
+    ${PROJECT_SOURCE_DIR}/test/data/fashion-mnist_test.csv
+    ${CMAKE_CURRENT_BINARY_DIR}/fashion-mnist_test.csv
+    COPYONLY
+)
+
 qt_add_executable(appAIVis
     main.cpp
     src/loader.h src/loader.cpp
-
 )
 
 qt_add_qml_module(appAIVis
@@ -30,8 +42,9 @@ set_target_properties(appAIVis PROPERTIES
 target_link_libraries(appAIVis
     PRIVATE
     Qt6::Quick
+    layerviewmodels
     layerviewmodelsplugin
-    # AiRepresentationInterface
+    fdeepbridge
 )
 
 include(GNUInstallDirs)

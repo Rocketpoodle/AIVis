@@ -45,33 +45,33 @@ void ViewModelsTest::testModelLoad()
     // check for proper layer information
     auto index = viewModel.index(0,0);
     LayerViewModelInterface* layerVm = nullptr;
-    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "input_1");
-    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "unknown");
-    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerId).toString(), "input_1");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerType).toString(), "unknown");
+    layerVm = viewModel.data(index,AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>();
     QVERIFY(layerVm);
     QVERIFY(dynamic_cast<UnknownLayerViewModel*>(layerVm));
 
     index = viewModel.index(1,0);
     layerVm = nullptr;
-    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "flatten");
-    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "unknown");
-    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerId).toString(), "flatten");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerType).toString(), "unknown");
+    layerVm = viewModel.data(index,AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>();
     QVERIFY(layerVm);
     QVERIFY(dynamic_cast<UnknownLayerViewModel*>(layerVm));
 
     index = viewModel.index(2,0);
     layerVm = nullptr;
-    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "dense");
-    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "dense");
-    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerId).toString(), "dense");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerType).toString(), "dense");
+    layerVm = viewModel.data(index,AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>();
     QVERIFY(layerVm);
     QVERIFY(dynamic_cast<DenseLayerViewModel*>(layerVm));
 
     index = viewModel.index(3,0);
     layerVm = nullptr;
-    QCOMPARE(viewModel.data(index,AIModelViewModel::id).toString(), "dense_1");
-    QCOMPARE(viewModel.data(index,AIModelViewModel::type).toString(), "dense");
-    layerVm = viewModel.data(index,AIModelViewModel::layer).value<LayerViewModelInterface*>();
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerId).toString(), "dense_1");
+    QCOMPARE(viewModel.data(index,AIModelViewModel::layerType).toString(), "dense");
+    layerVm = viewModel.data(index,AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>();
     QVERIFY(layerVm);
     QVERIFY(dynamic_cast<DenseLayerViewModel*>(layerVm));
 }

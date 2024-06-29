@@ -4,19 +4,21 @@ import LayerViewModels
 Item {
     id: root
 
-    required property LayerViewModelInterface layerModel
+    required property LayerViewModelInterface layerViewModel
+    required property string layerType
+    required property string layerId
 
     Loader {
         id: previewLoader
 
         anchors.fill: parent
 
-        source: LayerViewRegistrySingleton.getPreviewForLayerModel(layerModel.layerType)
+        source: { return LayerViewRegistrySingleton.getPreviewForLayerModel(root.layerType) }
 
         Connections {
             function onLoaded() {
                 if(previewLoader.item) {
-                    previewLoader.item.layerModel = root.layerModel
+                    previewLoader.item.layerModel = root.layerViewModel
                 }
             }
         }

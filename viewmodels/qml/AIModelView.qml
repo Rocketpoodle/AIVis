@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts
+import LayerViewModels
 
 RowLayout {
     id: root
@@ -10,7 +11,6 @@ RowLayout {
         id: layerPreviewRepeater
         delegate: LayerPreview {
             Layout.fillHeight: true
-
         }
     }
 }

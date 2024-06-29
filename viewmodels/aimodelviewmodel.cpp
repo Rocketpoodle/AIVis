@@ -46,11 +46,11 @@ QVariant AIModelViewModel::data(const QModelIndex& index, int role) const
 
     switch (role)
     {
-    case Roles::layer:
+    case Roles::layerViewModel:
         return QVariant::fromValue(layerPtr);
-    case Roles::id:
+    case Roles::layerId:
         return layerPtr->getLayerId();
-    case Roles::type:
+    case Roles::layerType:
         return layerPtr->getLayerType();
     default:
         return QVariant();

@@ -9,5 +9,6 @@ Window {
 
     AIModelView {
         anchors.fill: parent
+        layerModel: aiViewModel
     }
 }
