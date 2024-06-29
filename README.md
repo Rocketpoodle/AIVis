@@ -29,7 +29,10 @@ into the following directories:
 - **interface** - Classes defining the bridge between the underlying model 
                   representation and the front end viewmodels
 - **impl** - Implementation of bridge to interact with underlying model implementations
-        - **fdeepbridge** - Specific implementation to interact with Fdeep models
+	- **fdeepbridge** - Specific implementation to interact with Fdeep models
+- **common** - Commonly included source files accross multiple of the previous items
+- **test** - Integration level tests to full load of an AI model and creation of
+             corresponding ViewModels
         
 The purpose of the separation is to decouple the front end and back end implementations,
 and leave the opportunity to support other underlying model representations in the future.
