@@ -1,4 +1,4 @@
-set(TEST_NAME tst-annrepresentation)
+set(TEST_NAME tst-fdeepbridge)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Test Gui)
 find_package(frugally-deep)
@@ -17,7 +17,7 @@ configure_file(
 )
 
 add_executable(${TEST_NAME}
-        "tst_annrepresentation.cpp"
+    "tst_fdeepbridge.cpp"
 )
 
 add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} -o test_messages.xml -xunitxml)

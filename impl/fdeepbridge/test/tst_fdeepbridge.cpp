@@ -10,7 +10,7 @@
 #include <ext_data_model.h>
 #include <external_output_dict.h>
 
-class ANNRepresentationTest : public QObject
+class FdeepBridgeTest : public QObject
 {
     Q_OBJECT
 
@@ -29,14 +29,14 @@ private slots:
     void cleanupTestCase() {};
 };
 
-void ANNRepresentationTest::initTestCase()
+void FdeepBridgeTest::initTestCase()
 {
     auto model = fdeep::load_ext_data_model("simple_image_classifier.json");
     m_model = std::make_shared<FdeepBridge::Model>(model);
     m_model->initialize();
 }
 
-void ANNRepresentationTest::testModelParams()
+void FdeepBridgeTest::testModelParams()
 {
     QVERIFY((m_model->getInputShape() == std::vector<int>{28,28}));
     QVERIFY((m_model->getOutputShape() == std::vector<int>{10}));
@@ -44,11 +44,11 @@ void ANNRepresentationTest::testModelParams()
 }
 
 /*!
- * \brief ANNRepresentationTest::testLayerGraph
+ * \brief FdeepBridgeTest::testLayerGraph
  * \details tests that layer graph has correct nodes and connections
  *          and is properly sorted
  */
-void ANNRepresentationTest::testLayerGraph()
+void FdeepBridgeTest::testLayerGraph()
 {
     int i = 0;
     for (const auto& layer: m_model->getLayerGraph()) {
@@ -86,10 +86,10 @@ void ANNRepresentationTest::testLayerGraph()
 }
 
 /*!
- * \brief ANNRepresentationTest::testResult
+ * \brief FdeepBridgeTest::testResult
  * \details loads the test model and data and verifies that correct classification is made
  */
-void ANNRepresentationTest::testResult()
+void FdeepBridgeTest::testResult()
 {
     QFile testImageCsv("fashion-mnist_test.csv");
     testImageCsv.open(QFile::ReadOnly);
@@ -128,6 +128,6 @@ void ANNRepresentationTest::testResult()
     QVERIFY((std::max_element(outputs.cbegin(), outputs.cend()) - outputs.cbegin()) == truthIndex);
 }
 
-QTEST_MAIN(ANNRepresentationTest)
+QTEST_MAIN(FdeepBridgeTest)
 
-#include "tst_annrepresentation.moc"
+#include "tst_fdeepbridge.moc"
