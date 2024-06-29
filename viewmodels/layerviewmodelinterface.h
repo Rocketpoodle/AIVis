@@ -22,16 +22,25 @@ public:
 
     virtual ~LayerViewModelInterface() {};
 
+    /*!
+     * \brief getLayerType
+     * \return string layer type
+     */
     QString getLayerType() const
     {
         return QString::fromStdString(getLayerPointer()->getLayerType());
     };
 
+    /*!
+     * \brief getLayerId
+     * \return string layer id
+     */
     QString getLayerId() const
     {
         return QString::fromStdString(getLayerPointer()->getId());
     };
 
+    // "loads" the given run data into the model
     virtual void assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data) = 0;
 
 signals:
@@ -39,6 +48,7 @@ signals:
     void layerIdChanged();
 
 protected:
+    // gets pointer to layer interface class
     virtual const ModelBridge::LayerInterface* getLayerPointer() const = 0;
 
 };

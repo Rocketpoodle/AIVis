@@ -43,22 +43,31 @@ void ANNRepresentationTest::testModelParams()
     QVERIFY(m_model->getLayerCount() == 4);
 }
 
+/*!
+ * \brief ANNRepresentationTest::testLayerGraph
+ * \details tests that layer graph has correct nodes and connections
+ *          and is properly sorted
+ */
 void ANNRepresentationTest::testLayerGraph()
 {
+    int i = 0;
     for (const auto& layer: m_model->getLayerGraph()) {
         if (layer->layer->getId() == "input_1") {
+            QCOMPARE(i, 0);
             QVERIFY(layer->outputs.back()->layer->getId() == "flatten");
             QVERIFY(layer->layer->getLayerType() == "unknown");
             QVERIFY(std::dynamic_pointer_cast<ModelBridge::LayerInterface>(layer->layer));
             QVERIFY(std::dynamic_pointer_cast<FdeepBridge::FdeepUnknownLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "flatten") {
+            QCOMPARE(i, 1);
             QVERIFY(layer->inputs.back()->layer->getId() == "input_1");
             QVERIFY(layer->layer->getLayerType() == "unknown");
             QVERIFY(std::dynamic_pointer_cast<ModelBridge::LayerInterface>(layer->layer));
             QVERIFY(std::dynamic_pointer_cast<FdeepBridge::FdeepUnknownLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "dense") {
+            QCOMPARE(i, 2);
             QVERIFY(layer->inputs.back()->layer->getId() == "flatten");
             QVERIFY(layer->outputs.back()->layer->getId() == "dense_1");
             QVERIFY(layer->layer->getLayerType() == "dense");
@@ -66,15 +75,20 @@ void ANNRepresentationTest::testLayerGraph()
             QVERIFY(std::dynamic_pointer_cast<FdeepBridge::DenseLayer>(layer->layer));
         }
         else if (layer->layer->getId() == "dense_1") {
+            QCOMPARE(i, 3);
             QVERIFY(layer->inputs.back()->layer->getId() == "dense");
             QVERIFY(layer->layer->getLayerType() == "dense");
             QVERIFY(std::dynamic_pointer_cast<ModelBridge::DenseLayerInterface>(layer->layer));
             QVERIFY(std::dynamic_pointer_cast<FdeepBridge::DenseLayer>(layer->layer));
         }
+        ++i;
     }
 }
 
-
+/*!
+ * \brief ANNRepresentationTest::testResult
+ * \details loads the test model and data and verifies that correct classification is made
+ */
 void ANNRepresentationTest::testResult()
 {
     QFile testImageCsv("fashion-mnist_test.csv");

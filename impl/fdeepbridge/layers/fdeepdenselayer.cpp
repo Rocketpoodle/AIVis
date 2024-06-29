@@ -19,3 +19,13 @@ std::shared_ptr<ModelBridge::InternalLayerRep> DenseLayer::getInternalRep() cons
 {
     return std::make_shared<FdeepInternalRep>(m_layer);
 }
+
+// Static method for factory construction
+std::shared_ptr<ModelBridge::LayerInterface> FdeepBridge::create_dense_fdeep_layer(const fdeep::internal::layer_ptr& layer)
+{
+    if (auto dense_ptr = std::dynamic_pointer_cast<fdeep::internal::dense_layer>(layer)) {
+        return std::make_shared<DenseLayer>(dense_ptr);
+    }
+
+    return nullptr;
+}

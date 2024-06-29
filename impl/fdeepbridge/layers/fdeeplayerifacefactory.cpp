@@ -1,28 +1,21 @@
 #include "fdeeplayerifacefactory.h"
 
-#include "fdeepdenselayer.h"
 #include "layers/fdeepunknownlayer.h"
+#include "layers/fdeepdenselayer.h"
 
 using namespace FdeepBridge;
 
-// Begin static layer creators
-
-static LayerIfacePtr create_dense_fdeep_layer(const fdeep::internal::layer_ptr& layer)
-{
-    if (auto dense_ptr = std::dynamic_pointer_cast<fdeep::internal::dense_layer>(layer)) {
-        return std::make_shared<DenseLayer>(dense_ptr);
-    }
-
-    return nullptr;
-}
-
-// End static layer creators
-
 FdeepLayerFactory::FdeepLayerFactory()
 {
+    // register default layer creators
     registerLayerCreator(create_dense_fdeep_layer);
 }
 
+/*!
+ * \brief FdeepLayerFactory::createBridgeInterface
+ * \param layer fdeep layer pointer
+ * \return ModelBridge::LayerInterface pointer constructed from the given layer
+ */
 LayerIfacePtr FdeepLayerFactory::createBridgeInterface(const fdeep::internal::layer_ptr& layer)
 {
     if (!layer) {
@@ -31,6 +24,7 @@ LayerIfacePtr FdeepLayerFactory::createBridgeInterface(const fdeep::internal::la
 
     LayerIfacePtr newLayer;
 
+    // use first valid layer constructed
     auto creatorIt = m_layer_creators.cbegin();
     while (creatorIt != m_layer_creators.cend()) {
         if((newLayer = (*creatorIt)(layer))) {

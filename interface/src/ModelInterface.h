@@ -20,6 +20,9 @@ using DataPtr = std::shared_ptr<DataInterface>;
 // Layer graph
 struct LayerGraphNode;
 
+/*!
+ * \brief The LayerGraphNode class
+ */
 struct LayerGraphNode
 {
     LayerGraphNode(const LayerPtr& layer) : layer(layer) {}
@@ -33,6 +36,10 @@ using LayerGraphNodePtr = std::shared_ptr<LayerGraphNode>;
 class ModelInterface
 {
 public:
+    /*!
+     * \brief initialize
+     * \details initializes the model interface, building the layer graph
+     */
     void initialize()
     {
         m_layer_graph.clear();
@@ -76,6 +83,11 @@ public:
         }
     }
 
+    /*!
+     * \brief apply
+     * \details runs model on given data
+     * \param data object to apply model to and store results in
+     */
     void apply(DataPtr& data) const
     {
         auto inputShapes = getInputShape();
@@ -94,6 +106,11 @@ public:
         apply_impl(data);
     }
 
+    /*!
+     * \brief getLayer
+     * \param layerId string id for the layer to retrieve
+     * \return layer pointer for the given layerId, nullptr if not found
+     */
     inline LayerPtr getLayer(const std::string& layerId) const
     {
         if (m_id_to_index_map.count(layerId) < 1) {
@@ -102,26 +119,54 @@ public:
         return m_layer_graph.at(m_id_to_index_map.at(layerId))->layer;
     }
 
+    /*!
+     * \brief getLayerCount
+     * \return number of layers in model
+     */
     inline int getLayerCount() const
     {
         return m_layer_graph.size();
     }
 
+    /*!
+     * \brief getLayerGraph
+     * \return vector of layer graph nodes
+     */
     inline const std::vector<LayerGraphNodePtr>& getLayerGraph() const
     {
         return m_layer_graph;
     }
 
+    /*!
+     * \brief hasLayer
+     * \param layer to check for
+     * \return true if model contains the given layer
+     */
     inline bool hasLayer(const LayerPtr& layer)
     {
         return layer && (getLayer(layer->getId()) == layer);
     }
+
+    /*!
+     * \brief getInputShape
+     * \return dimensions of input vector
+     */
     virtual std::vector<int> getInputShape() const = 0;
+
+    /*!
+     * \brief getOutputShape
+     * \return dimensions of output vector
+     */
     virtual std::vector<int> getOutputShape() const = 0;
 
 protected:
+    // model representation specific implementation to apply to given data
     virtual void apply_impl(DataPtr& data) const = 0;
+
+    // gets list of layers from the underlying model representation
     virtual const std::vector<LayerPtr>& getLayers() const = 0;
+
+    // gets the inputs for the given layer
     virtual std::vector<LayerPtr> getIncomingLayers(const LayerPtr& layer) const = 0;
 
     std::vector<LayerGraphNodePtr> m_layer_graph;

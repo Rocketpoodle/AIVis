@@ -21,5 +21,7 @@ private:
     dense_layer_ptr m_layer;
 };
 
+std::shared_ptr<ModelBridge::LayerInterface> create_dense_fdeep_layer( const fdeep::internal::layer_ptr& layer);
+
 }
 #endif // FDEEPDENSELAYER_H
