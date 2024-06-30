@@ -1,4 +1,4 @@
-#include "fdeepdata.h"
+#include "fdeepdataloader.h"
 #include "fdeepmodel.h"
 #include "layers/denselayerinterface.h"
 #include "layers/fdeepdenselayer.h"
@@ -9,6 +9,8 @@
 
 #include <ext_data_model.h>
 #include <external_output_dict.h>
+
+#include "public/fdeepmodelloader.h"
 
 class FdeepBridgeTest : public QObject
 {
@@ -31,9 +33,11 @@ private slots:
 
 void FdeepBridgeTest::initTestCase()
 {
-    auto model = fdeep::load_ext_data_model("simple_image_classifier.json");
-    m_model = std::make_shared<FdeepBridge::Model>(model);
-    m_model->initialize();
+    FdeepModelLoader loader;
+    auto loaded_model = loader.loadModelFromFile("simple_image_classifier.json");
+    QVERIFY(loaded_model);
+    m_model = std::dynamic_pointer_cast<FdeepBridge::Model>(loaded_model);
+    QVERIFY(m_model);
 }
 
 void FdeepBridgeTest::testModelParams()
@@ -112,7 +116,8 @@ void FdeepBridgeTest::testResult()
     });
 
     // create data item
-    auto data_cache = std::dynamic_pointer_cast<ModelBridge::DataInterface>(std::make_shared<FdeepBridge::Data>());
+    FdeepDataLoader data_loader;
+    auto data_cache = data_loader.createBlankData();
     QVERIFY(!data_cache->hasValidOutput());
     QVERIFY(!data_cache->hasError());
 

@@ -20,5 +20,9 @@ add_executable(${TEST_NAME}
     "tst_fdeepbridge.cpp"
 )
 
+target_include_directories(${TEST_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../
+)
+
 add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} -o test_messages.xml -xunitxml)
-target_link_libraries(${TEST_NAME} PRIVATE Qt::Test Qt::Gui frugally-deep::fdeep Eigen3::Eigen fdeepbridge)
+target_link_libraries(${TEST_NAME} PRIVATE Qt::Test Qt::Gui frugally-deep::fdeep Eigen3::Eigen fdeepbridge ModelBridgeInterface)

@@ -1,22 +1,19 @@
 #include <QtTest>
 
 #include "aimodelviewmodel.h"
-#include "fdeepmodel.h"
 
+#include "fdeepdataloader.h"
 #include "unknownlayerviewmodel.h"
 #include "denselayerviewmodel.h"
 
-#include <ext_data_model.h>
-#include <external_output_dict.h>
-
-#include "fdeepdata.h"
+#include "fdeepmodelloader.h"
 
 class ViewModelsTest : public QObject
 {
     Q_OBJECT
 
 private:
-    std::shared_ptr<FdeepBridge::Model> m_model;
+    ModelBridge::ModelPtr m_model;
 
 private slots:
     void initTestCase();
@@ -30,15 +27,14 @@ private slots:
 
 void ViewModelsTest::initTestCase()
 {
-    auto model = fdeep::load_ext_data_model("simple_image_classifier.json");
-    m_model = std::make_shared<FdeepBridge::Model>(model);
-    m_model->initialize();
+    FdeepModelLoader loader;
+    m_model = loader.loadModelFromFile("simple_image_classifier.json");
+    QVERIFY(m_model);
 }
 
 void ViewModelsTest::testModelLoad()
 {
-    auto ifacePtr = std::dynamic_pointer_cast<ModelBridge::ModelInterface>(m_model); // why can't this implicitly convert to parent pointer??
-    AIModelViewModel viewModel(ifacePtr);
+    AIModelViewModel viewModel(m_model);
 
     QCOMPARE(viewModel.rowCount(), 4);
 
@@ -106,7 +102,9 @@ void ViewModelsTest::testDenseLayerOutputs()
     });
 
     // create data item
-    auto data_cache = std::dynamic_pointer_cast<ModelBridge::DataInterface>(std::make_shared<FdeepBridge::Data>());
+    FdeepDataLoader data_loader;
+    auto data_cache = data_loader.createBlankData();
+    QVERIFY(data_cache);
     QVERIFY(!data_cache->hasValidOutput());
     QVERIFY(!data_cache->hasError());
 

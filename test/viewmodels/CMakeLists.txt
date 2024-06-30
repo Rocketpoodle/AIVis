@@ -22,4 +22,4 @@ add_executable(${TEST_NAME}
 )
 
 add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} -o test_messages.xml -xunitxml)
-target_link_libraries(${TEST_NAME} PRIVATE Qt::Test Qt::Core Qt::Gui Qt::Quick frugally-deep::fdeep Eigen3::Eigen fdeepbridge layerviewmodels)
+target_link_libraries(${TEST_NAME} PRIVATE Qt::Test Qt::Core Qt::Gui Qt::Quick fdeepbridge layerviewmodels)

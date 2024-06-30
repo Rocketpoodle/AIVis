@@ -14,11 +14,17 @@ add_library(fdeepbridge STATIC
         ../../common/utils.h
         FdeepInternalRep.h
         layers/fdeepunknownlayer.h layers/fdeepunknownlayer.cpp
+        public/fdeepmodelloader.h fdeepmodelloader.cpp
+        public/fdeepdataloader.h fdeepdataloader.cpp
+)
+
+target_include_directories(fdeepbridge PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../common
 )
 
 target_include_directories(fdeepbridge PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../common
+    ${CMAKE_CURRENT_SOURCE_DIR}/public
 )
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -34,7 +40,7 @@ target_include_directories(fdeepbridge PUBLIC
 # Help cmake know that our target is C++
 set_target_properties(fdeepbridge PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries(fdeepbridge
+target_link_libraries(fdeepbridge PRIVATE
         ModelBridgeInterface
         frugally-deep::fdeep
         Eigen3::Eigen
