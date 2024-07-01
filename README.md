@@ -6,7 +6,7 @@ combinations of layers that data is fed through. The outputs of each layer can t
 inspected and displayed in a way that befits the layer type. 
 
 This does not train a model, but can take in an already created model saved from 
-PyTorch. This utilizes a utility in the fdeep library to convert the keras output
+Tensorflow. This utilizes a utility in the fdeep library to convert the keras output
 format to an representation that the fdeep C++ library can ingest. 
 
 ## Requirements
