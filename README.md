@@ -42,12 +42,20 @@ dynamically. This way, adding or replacing layer representations and view can be
 outside of the libraries (although may still need them as dependencies).
 
 ## Current work in progress
-- [x] implement dense layer view
-- [ ] implement convolutional layer 
+This project is currently in progress, and this is roughly the work to complete before 
+considering a "release" 
+- [x] Implement dense layer
+- [ ] Implement convolutional layer
 - [ ] Create application
 	- [ ] select and load model file
 	- [ ] select and load a data file
-	- [ ] run data and interact and view model
+	- [ ] run data and view activation of layers from the run data
+- [ ] Clean up unused 3rd party modules
+- [ ] Clean up extension of Fdeep to allow inspection of model. *Currently it's just a 
+few files that were copied and slightly modified to create extended versions of the
+needed classes. It would likely be cleaner to fork the repository and include the minor
+changes directly to the desired classes*
+- [ ] Create installer
 
 ## Needed Improvements
 - Optimization. Currently, the needs of the interface are being shaken out. As that 
