@@ -7,8 +7,8 @@ Window {
     visible: true
     title: qsTr("AI Visualizer")
 
-    AIModelView {
+    HomeView {
         anchors.fill: parent
-        layerModel: aiViewModel
+        aiLayerModel: aiViewModel
     }
 }

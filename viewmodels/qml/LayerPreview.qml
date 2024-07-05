@@ -1,8 +1,12 @@
 import QtQuick 2.15
 import LayerViewModels
 
-Item {
+Rectangle {
     id: root
+
+    border.color: "black"
+    border.width: 2
+    color: "grey"
 
     required property LayerViewModelInterface layerViewModel
     required property string layerType

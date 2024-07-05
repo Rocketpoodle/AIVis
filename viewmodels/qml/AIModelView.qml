@@ -7,10 +7,29 @@ RowLayout {
 
     property alias layerModel: layerPreviewRepeater.model
 
+    signal itemClicked(clickedLayerModel: LayerViewModelInterface)
+
     Repeater {
         id: layerPreviewRepeater
         delegate: LayerPreview {
+            id: previewDelegate
+            required property int index
+
+            Layout.preferredHeight: 400
+            Layout.preferredWidth: 200
+
             Layout.fillHeight: true
+
+            MouseArea {
+                anchors.fill: parent
+
+                Connections {
+                    function onClicked() {
+                        root.itemClicked(previewDelegate.layerViewModel)
+                        console.info("Clicked: ", previewDelegate.layerViewModel.layerId)
+                    }
+                }
+            }
         }
     }
 }

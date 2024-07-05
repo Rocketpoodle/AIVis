@@ -22,6 +22,7 @@ qt_add_qml_module(layerviewmodels
     layers/unknownlayerviewmodel.h layers/unknownlayerviewmodel.cpp
     layers/denselayerviewmodel.h layers/denselayerviewmodel.cpp
     aimodelviewmodel.h aimodelviewmodel.cpp
+    QML_FILES qml/HomeView.qml
 )
 
 target_include_directories(layerviewmodels PUBLIC
