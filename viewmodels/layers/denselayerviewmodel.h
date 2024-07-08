@@ -27,6 +27,8 @@ public:
 
     void assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data);
 
+    void clearRunData();
+
     ASSIGN_ROLES(Roles)
 
 private:
@@ -47,6 +49,8 @@ public:
     virtual ~DenseLayerViewModel() {};
 
     virtual void assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data) override;
+
+    virtual void clearRunData() override;
 
     DenseNodesListModel* getNodesListModel() { return m_nodes; }
 

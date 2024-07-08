@@ -52,6 +52,15 @@ void DenseNodesListModel::assignRunData(const std::shared_ptr<ModelBridge::DataI
     endResetModel();
 }
 
+void DenseNodesListModel::clearRunData()
+{
+    beginResetModel();
+
+    m_data.clear();
+
+    endResetModel();
+}
+
 DenseLayerViewModel::DenseLayerViewModel(const std::shared_ptr<ModelBridge::DenseLayerInterface>& layer, QObject *parent)
     : LayerViewModelInterface{parent}
     , m_layer(layer)
@@ -68,6 +77,11 @@ const ModelBridge::LayerInterface* DenseLayerViewModel::getLayerPointer() const
 void DenseLayerViewModel::assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data)
 {
     m_nodes->assignRunData(data);
+}
+
+void DenseLayerViewModel::clearRunData()
+{
+    m_nodes->clearRunData();
 }
 
 DenseLayerViewModel* create_dense_layer_viewmodel(const std::shared_ptr<ModelBridge::LayerInterface>& layer, QObject* parent)

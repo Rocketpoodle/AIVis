@@ -26,7 +26,6 @@ RowLayout {
                 Connections {
                     function onClicked() {
                         root.itemClicked(previewDelegate.layerViewModel)
-                        console.info("Clicked: ", previewDelegate.layerViewModel.layerId)
                     }
                 }
             }

@@ -16,6 +16,8 @@ public:
 
     virtual void assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data) override {};
 
+    virtual void clearRunData() override {};
+
 protected:
     virtual const ModelBridge::LayerInterface* getLayerPointer() const override { return m_layer.get(); };
 

@@ -43,6 +43,9 @@ public:
     // "loads" the given run data into the model
     virtual void assignRunData(const std::shared_ptr<ModelBridge::DataInterface>& data) = 0;
 
+    // "clears" the currently assigned run data
+    virtual void clearRunData() = 0;
+
 signals:
     void layerTypeChanged();
     void layerIdChanged();
