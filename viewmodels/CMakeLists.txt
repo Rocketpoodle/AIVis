@@ -13,6 +13,9 @@ qt_add_qml_module(layerviewmodels
     qml/layers/UnknownLayerPreview.qml
     qml/layers/DenseLayerPreview.qml
     qml/layers/DenseLayerView.qml
+    qml/HomeView.qml
+    qml/Zoomable.qml
+    qml/layers/DenseLayerNodeDelegate.qml
     SOURCES
     ../common/utils.h
     qtutils.h
@@ -22,7 +25,7 @@ qt_add_qml_module(layerviewmodels
     layers/unknownlayerviewmodel.h layers/unknownlayerviewmodel.cpp
     layers/denselayerviewmodel.h layers/denselayerviewmodel.cpp
     aimodelviewmodel.h aimodelviewmodel.cpp
-    QML_FILES qml/HomeView.qml
+    zoomhelper.h zoomhelper.cpp
 )
 
 target_include_directories(layerviewmodels PUBLIC

@@ -17,20 +17,21 @@ ColumnLayout {
         font.bold: true
     }
 
-    Flickable {
+    Zoomable {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        contentHeight: nodeColumn.height
-        Column {
+        id: zoomable
+        zoomableItem: Column {
             id: nodeColumn
-            spacing: 10
+            spacing: 20 * zoomable.zoomScale
             Repeater {
+                id: nodeRepeater
                 model: layerModel.nodeListModel
-                // replace with node delegate
-                delegate: Rectangle {
-                    height: 10
-                    width: 10
-                    color: ( output > 1) ?  "green" : "grey"
+                delegate: DenseLayerNodeDelegate {
+                    height: 100* zoomable.zoomScale
+                    width: 100* zoomable.zoomScale
+                    fontSize: 12 * zoomable.zoomScale
+                    spacing: 2 * zoomable.zoomScale
                 }
             }
         }
