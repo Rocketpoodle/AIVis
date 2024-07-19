@@ -7,30 +7,22 @@ Item {
     required property int index
     property real fontSize: 8
     property real spacing: 2
-    Shape {
+    Image {
+        id: nodeImage
+        source: "qrc:/qt/qml/LayerViewModels/assets/node.png"
+        property color monoColor: (output > 1) ? "#FF00FF00" : "#FF808080"
         anchors.fill: parent
-        ShapePath {
-            startX: root.height/2
-            startY: 0
-            strokeColor: "black"
-            fillColor: (output > 1) ? "green" : "grey"
-
-            PathArc {
-                x: root.height/2
-                y: root.height
-                radiusX: root.height/2
-                radiusY: root.height/2
-            }
-            PathArc {
-                x: root.height/2
-                y: 0
-                radiusX: root.height/2
-                radiusY: root.height/2
-            }
+        fillMode: Image.PreserveAspectFit
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            property var monoColor: Qt.vector4d(nodeImage.monoColor.r, nodeImage.monoColor.g, nodeImage.monoColor.b, nodeImage.monoColor.a)
+            property var source: nodeImage
+            fragmentShader: "/shaders/recolor.frag.qsb"
         }
     }
     Column {
         anchors.centerIn: parent
+        anchors.horizontalCenterOffset: -root.width/4
         // spacing: root.spacing
         Text {
             text: index

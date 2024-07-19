@@ -26,7 +26,22 @@ qt_add_qml_module(layerviewmodels
     layers/denselayerviewmodel.h layers/denselayerviewmodel.cpp
     aimodelviewmodel.h aimodelviewmodel.cpp
     zoomhelper.h zoomhelper.cpp
+    RESOURCES
+    assets/node.png
+    assets/prelu.png
 )
+
+find_package(Qt6 COMPONENTS ShaderTools)
+
+qt_add_shaders(layerviewmodels
+    BATCHABLE
+    PRECOMPILE
+    OPTIMIZED
+    PREFIX "/"
+    FILES
+        shaders/recolor.frag
+)
+
 
 target_include_directories(layerviewmodels PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}

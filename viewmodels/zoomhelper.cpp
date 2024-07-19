@@ -7,7 +7,9 @@ ZoomHelper::ZoomHelper(QObject *parent)
     , m_viewHeight(1)
     , m_zoomAdjust(0.1)
 {
-
+    m_zoom_apply_lock_timer.setInterval(200);
+    m_zoom_apply_lock_timer.setSingleShot(true);
+    connect(&m_zoom_apply_lock_timer, &QTimer::timeout, this, &ZoomHelper::zoomScaleChanged);
 }
 
 qreal ZoomHelper::getZoomScale() const
@@ -23,7 +25,7 @@ void ZoomHelper::setZoomScale(const qreal& scale)
 
     if (scale != m_zoomScale) {
         m_zoomScale = scale;
-        emit zoomScaleChanged();
+        m_zoom_apply_lock_timer.start();
     }
 }
 

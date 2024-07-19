@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QTimer>
 
 class ZoomHelper : public QObject
 {
@@ -33,6 +34,8 @@ private:
     qreal m_viewWidth;
     qreal m_viewHeight;
     qreal m_zoomAdjust;
+
+    QTimer m_zoom_apply_lock_timer;
 };
 
 #endif // ZOOMHELPER_H
