@@ -9,7 +9,7 @@ Item {
     property real spacing: 2
     Image {
         id: nodeImage
-        source: "qrc:/qt/qml/LayerViewModels/assets/node.png"
+        source: "qrc:/qt/qml/LayerViewModels/assets/node.bmp"
         property color monoColor: (output > 1) ? "#FF00FF00" : "#FF808080"
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
@@ -19,6 +19,13 @@ Item {
             property var source: nodeImage
             fragmentShader: "/shaders/recolor.frag.qsb"
         }
+    }
+    Image {
+        anchors.centerIn: parent
+        height: parent.height * 0.5
+        width: parent.width * 0.5
+        fillMode: Image.PreserveAspectFit
+        source: "qrc:/qt/qml/LayerViewModels/assets/prelu.bmp"
     }
     Column {
         anchors.centerIn: parent

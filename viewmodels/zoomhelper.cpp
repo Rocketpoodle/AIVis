@@ -7,7 +7,7 @@ ZoomHelper::ZoomHelper(QObject *parent)
     , m_viewHeight(1)
     , m_zoomAdjust(0.1)
 {
-    m_zoom_apply_lock_timer.setInterval(200);
+    m_zoom_apply_lock_timer.setInterval(0);
     m_zoom_apply_lock_timer.setSingleShot(true);
     connect(&m_zoom_apply_lock_timer, &QTimer::timeout, this, &ZoomHelper::zoomScaleChanged);
 }

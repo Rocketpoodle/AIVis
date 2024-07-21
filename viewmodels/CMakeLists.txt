@@ -29,6 +29,8 @@ qt_add_qml_module(layerviewmodels
     RESOURCES
     assets/node.png
     assets/prelu.png
+    assets/node.bmp
+    assets/prelu.bmp
 )
 
 find_package(Qt6 COMPONENTS ShaderTools)

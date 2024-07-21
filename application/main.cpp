@@ -15,7 +15,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     /*!
-     * \todo create function in fdeepbridge to construct a model from a given file
+     * \todo Remove this main
+     *       Currently, we just load a known test model and run a known input through it,
+     *       then manually assign the data to each layer
      */
     FdeepModelLoader model_loader;
     auto m_model = model_loader.loadModelFromFile("simple_image_classifier.json");
@@ -37,10 +39,12 @@ int main(int argc, char *argv[])
     FdeepDataLoader data_loader;
     auto data = data_loader.createBlankData();
     data->setInputs(inputImage);
+    m_model->apply(data);
 
-    // a little known magic to assign the layer data
-    viewModel.data(viewModel.index(2,0), AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>()->assignRunData(data);
-
+    // a little known magic to assign the layer data (later this will be managed by a data handler)
+    for (int i = 0; i < viewModel.rowCount(); ++i) {
+        viewModel.data(viewModel.index(i,0), AIModelViewModel::layerViewModel).value<LayerViewModelInterface*>()->assignRunData(data);
+    }
 
     QQmlApplicationEngine engine;
     QObject::connect(
