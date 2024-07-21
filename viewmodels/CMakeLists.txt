@@ -16,6 +16,7 @@ qt_add_qml_module(layerviewmodels
     qml/HomeView.qml
     qml/Zoomable.qml
     qml/layers/DenseLayerNodeDelegate.qml
+    qml/BackButton.qml
     SOURCES
     ../common/utils.h
     qtutils.h
@@ -31,6 +32,7 @@ qt_add_qml_module(layerviewmodels
     assets/prelu.png
     assets/node.bmp
     assets/prelu.bmp
+    assets/leftarrow.bmp
 )
 
 find_package(Qt6 COMPONENTS ShaderTools)
